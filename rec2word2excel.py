@@ -4,7 +4,7 @@ from PIL import Image
 from pytesseract import pytesseract
 import re
 
-file_path = '/Users/hzh/Desktop/img'
+file_path = 'img'
 img_list = os.listdir(file_path)
 try:
     img_list.remove('.DS_Store')
@@ -37,4 +37,4 @@ df_project = pd.DataFrame(project_list)
 df_combined = pd.concat([df_project, df_year, df_month], axis=1)
 
 # 将合并后的 DataFrame 写入 Excel
-df_combined.to_excel('merged_output.xlsx', index=False)
+df_combined.to_excel('output.xlsx', index=False)

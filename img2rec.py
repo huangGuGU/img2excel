@@ -1,17 +1,14 @@
+import os.path
+
 import cv2
 
-
-img = cv2.imread('/Users/hzh/Desktop/WechatIMG77575.jpg')
+img = cv2.imread('WechatIMG77575.jpg')
 gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
-
-# 图像预处理：使用高斯模糊去噪
 blur = cv2.GaussianBlur(gray, (5, 5), 0)
-
 edges = cv2.Canny(blur, 50, 200)
-
 contours, _ = cv2.findContours(edges, cv2.RETR_LIST, cv2.CHAIN_APPROX_NONE)
-
-
+if not os.path.exists('img'):
+    os.mkdir('img')
 rectangle_list = []
 for contour in contours:
     area = cv2.contourArea(contour)
@@ -58,13 +55,10 @@ while l_project <= length and l_year <= length and l_month <= length:
     else:
         l_month += 1
 
-    cv2.imwrite(f'/Users/hzh/Desktop/img/{n}_项目.jpg',
+    cv2.imwrite(f'img/{n}_项目.jpg',
                 img[rec_project[1]:rec_project[1] + rec_project[3], rec_project[0]:rec_project[0] + rec_project[2]])
-    cv2.imwrite(f'/Users/hzh/Desktop/img/{n}_月.jpg',
+    cv2.imwrite(f'img/{n}_月.jpg',
                 img[rec_month[1]:rec_month[1] + rec_month[3], rec_month[0]:rec_month[0] + rec_month[2]])
-    cv2.imwrite(f'/Users/hzh/Desktop/img/{n}_年.jpg',
+    cv2.imwrite(f'img/{n}_年.jpg',
                 img[rec_year[1]:rec_year[1] + rec_year[3], rec_year[0]:rec_year[0] + rec_year[2]])
     n += 1
-
-
-
